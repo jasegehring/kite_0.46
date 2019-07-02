@@ -15,8 +15,8 @@ A walk-through from the kallisto | bustools [Tutorials](https://www.kallistobus.
 ## kite Installation
 Clone the GitHub repo and use pip to install the kite package
 ```
-!git clone https://github.com/pachterlab/kite
-!pip install -e ./kite
+$git clone https://github.com/pachterlab/kite
+$pip install -e ./kite
 ```
 ## System Requirements
 Feature Barcode pre-processing requires `kite` as well as up-to-date versions of `kallisto` and `bustools`
@@ -78,7 +78,7 @@ $wget http://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_1k_protein_v3/pbmc_1
 $tar -xvf ./pbmc_1k_protein_v3_fastqs.tar
 $wget http://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_1k_protein_v3/pbmc_1k_protein_v3_feature_ref.csv
 $wget http://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_1k_protein_v3/pbmc_1k_protein_v3_filtered_feature_bc_matrix.tar.gz
-$!tar xvzf ./pbmc_1k_protein_v3_filtered_feature_bc_matrix.tar.gz
+$tar -xvzf ./pbmc_1k_protein_v3_filtered_feature_bc_matrix.tar.gz
 ```
 
 The directory now includes the raw fastqs, the Feature Barcode whitelist reference, the 10x 3M-february-2018 cell barcode whitelist, and the CellRanger Features x Cells matrix. See notebook for example. 
@@ -110,11 +110,10 @@ We start by making a .csv file containing Feature Barcode names and Feature Barc
 |IgG1_control_TotalSeqB|ACTCACTGGAGTCTC|
 |IgG2b_control_TotalSeqB| ATCACATCGTTGCCA|
 
-The kite_mismatch_maps function takes the Python dictionary (featurebarcodes) and writes a mismatch t2g and mismatch fasta. In this way, the 17 original Feature Barcodes become a mismatch fasta file and a mismatch t2g file, each with 782 entries.
+The kite_mismatch_maps function takes the FeatureBarcodes.csv file and converts it into a mismatch t2g file and a mismatch fasta file, each with 782 entries.
 
 ```
-import kite
-kite.kite_mismatch_maps(featurebarcodes, './10xFeatures_t2g.txt', './10xFeaturesMismatch.fa')
+$./kite/featuremap/featuremap.py FeatureBarcodes.csv
 ```
 
 Processing Feature Barcodes is similar to processing transcripts except instead of looking for transcript fragments of length `-k` (the k-mer length) in the reads, a "mismatch" index is used to search the raw reads for the Feature Barcode whitelist and mismatch sequences. Please refer to the [kallisto documentation](https://www.kallistobus.tools/documentation) for more information on the kallisto | bustools workflow. 
@@ -122,13 +121,13 @@ Processing Feature Barcodes is similar to processing transcripts except instead 
 Because Feature Barcodes are typically designed to be robust to some sequencing errors, each Feature Barcode and its mismatches are unique across an experiment, thus each Feature Barcode equivalence class has a one-to-one correspondence to a member of the Feature Barcode whitelist. This is reflected in the t2g file, where each mismatch Feature Barcode points to a unique parent Feature Barcode from the whitelist, analogous to the relationship between genes and transcripts in the case of cDNA processing. 
 
 ```
-!head -4 ./10xFeatures_t2g.txt
+$head -n 4 ./10xFeatures_t2g.txt
 CD3_TotalSeqB	CD3_TotalSeqB	CD3_TotalSeqB
 CD3_TotalSeqB-0-1	CD3_TotalSeqB	CD3_TotalSeqB
 CD3_TotalSeqB-0-2	CD3_TotalSeqB	CD3_TotalSeqB
 CD3_TotalSeqB-0-3	CD3_TotalSeqB	CD3_TotalSeqB
 
-!head -8 ./10xFeaturesMismatch.fa
+$head -n 8 ./10xFeaturesMismatch.fa
 >CD3_TotalSeqB
 AACAAGACCCTTGAG
 >CD3_TotalSeqB-0-1
@@ -142,33 +141,27 @@ CACAAGACCCTTGAG
 The mismatch fasta is used to run `kallisto index`. 
 
 ```
-!kallisto index -i ./index_path.idx -k 15 ./fasta_path.fa
-[build] loading fasta file /home/jgehring/scRNAseq/kITE/10xTest/10xFeaturesMismatch.fa
-[build] k-mer length: 15
-[build] counting k-mers ... done.
-[build] building target de Bruijn graph ...  done 
-[build] creating equivalence classes ...  done
-[build] target de Bruijn graph has 782 contigs and contains 782 k-mers 
+$kallisto index -i ./index_path.idx -k 15 ./fasta_path.fa
 ```
 
 Next, `kallisto bus` and `bustools` are used without modifications. 
 
 ```
-!kallisto bus -i ./index_path.idx -o ./ -x 10xv3 -t 4 \
+$kallisto bus -i ./index_path.idx -o ./ -x 10xv3 -t 4 \
 ./pbmc_1k_protein_v3_fastqs/pbmc_1k_protein_v3_antibody_fastqs/pbmc_1k_protein_v3_antibody_S2_L001_R1_001.fastq.gz \
 ./pbmc_1k_protein_v3_fastqs/pbmc_1k_protein_v3_antibody_fastqs/pbmc_1k_protein_v3_antibody_S2_L001_R2_001.fastq.gz \
 ./pbmc_1k_protein_v3_fastqs/pbmc_1k_protein_v3_antibody_fastqs/pbmc_1k_protein_v3_antibody_S2_L002_R1_001.fastq.gz \
 ./pbmc_1k_protein_v3_fastqs/pbmc_1k_protein_v3_antibody_fastqs/pbmc_1k_protein_v3_antibody_S2_L002_R2_001.fastq.gz \
 ```
 
-We now have a BUS file for this pseudoalignment. 
+We now have a BUS file for this pseudoalignment. Bustools is used to process the BUS file. 
 ```
-!bustools correct -w ./3M-february-2018.txt ./output.bus -o ./output_corrected.bus
+$bustools correct -w ./3M-february-2018.txt ./output.bus -o ./output_corrected.bus
 
-!bustools sort -t 4 -o ./output_sorted.bus ./output_corrected.bus
+$bustools sort -t 4 -o ./output_sorted.bus ./output_corrected.bus
 
-!bustools count -o ./ --genecounts -g ./t2g_path.t2g -e ./matrix.ec -t ./transcripts.txt ./output_sorted.bus
+$bustools count -o ./ --genecounts -g ./t2g_path.t2g -e ./matrix.ec -t ./transcripts.txt ./output_sorted.bus
 
 ```
 
-`Bustools count` outputs a .mtx-formatted Features x Cells matrix and vectors of gene names and cell barcodes (genes.txt and barcodes.txt). From here, standard analysis packages like ScanPy and Seurat can be used to continue the Feature Barcode analysis. 
+`Bustools count` outputs a .mtx-formatted Features x Cells matrix and vectors of gene names and cell barcodes (genes.txt and barcodes.txt). From here, standard analysis packages like ScanPy and Seurat can be used to continue the Feature Barcode analysis. For details, check out the [Jupyter notebook](https://github.com/pachterlab/kite/tree/master/docs/).
