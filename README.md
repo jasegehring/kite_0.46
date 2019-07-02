@@ -73,7 +73,7 @@ To avoid potential pseudoalignment errors arising from inverted repeats, kallist
 
 The [docs](https://github.com/jgehringUCB/kite/tree/master/docs) folder contains a complete analysis ([10x_kiteVignette.ipynb](https://github.com/jgehringUCB/kite/tree/master/docs/10X_kiteVignette.ipynb)) for a 10x dataset collected on ~730 peripheral blood mononuclear cells (PBMCs) labeled with 17 unique Feature Barcoded antibodies. The dataset can be found [here](https://support.10xgenomics.com/single-cell-gene-expression/datasets/3.0.0/pbmc_1k_protein_v3).
 
-The following is an abbreviated walk-through showing key steps.  
+The following is an abbreviated reproduced in the [Tutorials](https://www.kallistobus.tools/tutorials) section of the kallisto | bustools website. 
 
 ### Download Files for Example Data
 
