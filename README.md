@@ -34,13 +34,15 @@ For downstream analysis, we use [ScanPy](https://scanpy.readthedocs.io/en/stable
 
 ## kite Utilities
 
-#### `featuremap.py FeatureBarcodes.csv'
-This file can be run from the command line
+#### `featuremap.py FeatureBarcodes.csv`
+Running this program from the command line is the easiest way to use `kite` for Feature Barcoding experiments. It takes a .csv input and outputs "mismatch" transcript-to-gene (t2g) and fasta files that can be used by kallisto | bustools to complete pre-processing (see below and Vignettes).
 
-#### `kite_mismatch_maps(FeatureDict, mismatch_t2g_path, mismatch_fasta_path)`
-This wrapper function is the easiest way to use `kite` from within a Python notebook. "Mismatch" t2g and fasta files are saved and can be used by kallisto | bustools to complete pre-processing(see below and Vignettes).
+FeatureBarcodes.csv: path to a .csv-formatted file containing Feature Barcode names and sequences (example below).
 
-FeatureDict: a Python dictionary with Feature Barcode name : Feature Barcode sequence as key:value pairs
+#### `kite_mismatch_maps(FeatureBarcodes.csv, mismatch_t2g_path, mismatch_fasta_path)`
+This wrapper function is the easiest way to use `kite` from within a Python notebook. It outputs "mismatch" t2g and fasta files that can be used by kallisto | bustools to complete pre-processing(see below and Vignettes).
+
+FeatureBarcodes.csv: path to a a .csv-formatted file containing Feature Barcode names and sequences (example below).
 mismatch_t2g_path: filepath for a new "mismatch" t2g file  
 mismatch_fasta_path: filepath for a new "mismatch" fasta file
 
