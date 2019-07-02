@@ -35,12 +35,14 @@ For downstream analysis, we use [ScanPy](https://scanpy.readthedocs.io/en/stable
 ## kite Utilities
 
 #### `featuremap.py FeatureBarcodes.csv`
-Running this program from the command line is the easiest way to use `kite` for Feature Barcoding experiments. It takes a .csv input and outputs "mismatch" transcript-to-gene (t2g) and fasta files that can be used by kallisto | bustools to complete pre-processing (see below and Vignettes).
+This command line program is the easiest way to use `kite` for Feature Barcoding experiments. It takes a .csv input and outputs "mismatch" transcript-to-gene (t2g) and fasta files that can be used by kallisto | bustools to complete pre-processing (see below and Vignettes).
 
 FeatureBarcodes.csv: path to a .csv-formatted file containing Feature Barcode names and sequences (example below).
 
+returns mismatch t2g and fasta files saved to the working directory
+
 #### `kite_mismatch_maps(FeatureBarcodes.csv, mismatch_t2g_path, mismatch_fasta_path)`
-This wrapper function is the easiest way to use `kite` from within a Python notebook. It outputs "mismatch" t2g and fasta files that can be used by kallisto | bustools to complete pre-processing(see below and Vignettes).
+This Python wrapper function is the easiest way to use `kite` from within Python. It outputs "mismatch" t2g and fasta files that can be used by kallisto | bustools to complete pre-processing(see below and Vignettes).
 
 FeatureBarcodes.csv: path to a a .csv-formatted file containing Feature Barcode names and sequences (example below).
 mismatch_t2g_path: filepath for a new "mismatch" t2g file  
@@ -49,7 +51,7 @@ mismatch_fasta_path: filepath for a new "mismatch" fasta file
 returns mismatch t2g and fasta files to the specified directories
 
 #### `make_mismatch_map(FeatureDict)`
-This function returns all sample tags and and their single base mismatches (hamming distance 1) as an OrderedDict object. The number of elements in the object is (k=the length of the Feature Barocdes)*(3=altnerative base pairs for each base)*(N=number of Feature Barocdes) + (N=number of Feature Barcode sequences). For the 10x example dataset, 17 Feature Barcodes of length k=15 are used. These yield 15x3x17+17=782 entries in the OrderedDict object. 
+This function returns all sample tags and and their single base mismatches (Hamming distance 1) as an OrderedDict object. The number of elements in the object is (k=the length of the Feature Barocdes)*(3=altnerative base pairs for each base)*(N=number of Feature Barocdes) + (N=number of Feature Barcode sequences). For the 10x example dataset, 17 Feature Barcodes of length k=15 are used. These yield 15x3x17+17=782 entries in the OrderedDict object. 
 
 FeatureDict: a Python dictionary with Feature Barcode name : Feature Barcode sequence as key:value pairs
 
@@ -65,7 +67,7 @@ mismatch_fasta_path: filepath for a new "mismatch" fasta file
 returns mismatch t2g and fasta files to the specified directories
 
 >## NOTE: Use only odd values for k-mer length during `kallisto index` 
->To avoid potential pseudoalignment errors arising from inverted repeats, kallisto only accepts odd values for the k-mer >length `-k`. If your Feature Barcodes have an even length, just add an appropriate constant base on one side and follow the >protocol as suggested. Adding constant bases in this way increases specificity and may be useful for experiments with low >sequencing quality or very short Feature Barcodes. 
+To avoid potential pseudoalignment errors arising from inverted repeats, kallisto only accepts odd values for the k-mer length `-k`. If your Feature Barcodes have an even length, just add an appropriate constant base on one side and follow the protocol as suggested. Adding constant bases in this way increases specificity and may be useful for experiments with low sequencing quality or very short Feature Barcodes. 
 
 ## Brief Example: 1k PBMCs from a Healthy Donor - Gene Expression and Cell Surface Protein
 
