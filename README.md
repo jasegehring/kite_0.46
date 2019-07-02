@@ -89,26 +89,26 @@ pbmc_1k_protein_v3_feature_ref.csv
 filtered_feature_bc_matrix/
 ```
 
-We start by making a Python dictionary containing Feature Barcode names and Feature Barcode sequences as key:value pairs. Code to generate this dictionary from the 10x `pbmc_1k_protein_v3_feature_ref.csv` is provided with the iPython notebook in the [docs](https://github.com/pachterlab/kite/tree/master/docs/) folder. 
+We start by making a .csv file containing Feature Barcode names and Feature Barcode sequences. __Please include a header as shown.__ For example code, refer to the [Jupyter notebook](https://github.com/pachterlab/kite/tree/master/docs/)
 
 | Feature Barcode name  | Feature Barcode sequence |
 | ------------- | ------------- |
-| CD3_TotalSeqB | AACAAGACCCTTGAG |
-| CD8a_TotalSeqB | TACCCGTAATAGCGT |
-| CD14_TotalSeqB | GAAAGTCAAAGCACT |
-| CD15_TotalSeqB | ACGAATCAATCTGTG |
-| CD16_TotalSeqB | GTCTTTGTCAGTGCA |
-| CD56_TotalSeqB | GTTGTCCGACAATAC |
-| CD19_TotalSeqB | TCAACGCTTGGCTAG |
-| CD25_TotalSeqB | GTGCATTCAACAGTA |
-| CD45RA_TotalSeqB | GATGAGAACAGGTTT |
-| CD45RO_TotalSeqB | TGCATGTCATCGGTG |
-| PD-1_TotalSeqB | AAGTCGTGAGGCATG |
-| TIGIT_TotalSeqB | TGAAGGCTCATTTGT |
-| CD127_TotalSeqB | ACATTGACGCAACTA |
-| IgG2a_control_TotalSeqB | CTCTATTCAGACCAG |
-| IgG1_control_TotalSeqB | ACTCACTGGAGTCTC |
-| IgG2b_control_TotalSeqB | ATCACATCGTTGCCA |
+|CD3_TotalSeqB|AACAAGACCCTTGAG|
+|CD8a_TotalSeqB|TACCCGTAATAGCGT|
+|CD14_TotalSeqB|GAAAGTCAAAGCACT|
+|CD15_TotalSeqB|ACGAATCAATCTGTG|
+|CD16_TotalSeqB|GTCTTTGTCAGTGCA|
+|CD56_TotalSeqB|GTTGTCCGACAATAC|
+|CD19_TotalSeqB|TCAACGCTTGGCTAG|
+|CD25_TotalSeqB|GTGCATTCAACAGTA|
+|CD45RA_TotalSeqB|GATGAGAACAGGTTT|
+|CD45RO_TotalSeqB|TGCATGTCATCGGTG|
+|PD-1_TotalSeqB|AAGTCGTGAGGCATG|
+|TIGIT_TotalSeqB|TGAAGGCTCATTTGT|
+|CD127_TotalSeqB|ACATTGACGCAACTA|
+|IgG2a_control_TotalSeqB|CTCTATTCAGACCAG|
+|IgG1_control_TotalSeqB|ACTCACTGGAGTCTC|
+|IgG2b_control_TotalSeqB| ATCACATCGTTGCCA|
 
 The kite_mismatch_maps function takes the Python dictionary (featurebarcodes) and writes a mismatch t2g and mismatch fasta. In this way, the 17 original Feature Barcodes become a mismatch fasta file and a mismatch t2g file, each with 782 entries.
 
