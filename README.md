@@ -66,7 +66,7 @@ mismatch_fasta_path: filepath for a new "mismatch" fasta file
 
 returns mismatch t2g and fasta files to the specified directories
 
->## NOTE: Use only odd values for k-mer length during `kallisto index` 
+## NOTE: Use only odd values for k-mer length during `kallisto index` 
 To avoid potential pseudoalignment errors arising from inverted repeats, kallisto only accepts odd values for the k-mer length `-k`. If your Feature Barcodes have an even length, just add an appropriate constant base on one side and follow the protocol as suggested. Adding constant bases in this way increases specificity and may be useful for experiments with low sequencing quality or very short Feature Barcodes. 
 
 ## Brief Example: 1k PBMCs from a Healthy Donor - Gene Expression and Cell Surface Protein
@@ -115,6 +115,11 @@ feature_barcodes={'CD3_TotalSeqB': 'AACAAGACCCTTGAG',
  'IgG1_control_TotalSeqB': 'ACTCACTGGAGTCTC',
  'IgG2b_control_TotalSeqB': 'ATCACATCGTTGCCA'}
 ```
+| Feature Barcode name  | Feature Barcode sequence |
+| ------------- | ------------- |
+| CD3_TotalSeqB  | AACAAGACCCTTGAG  |
+| CD8a_TotalSeqB  | TACCCGTAATAGCGT  |
+
 The kite_mismatch_maps function takes the Python dictionary (featurebarcodes) and writes a mismatch t2g and mismatch fasta. In this way, the 17 original Feature Barcodes become a mismatch fasta file and a mismatch t2g file, each with 782 entries.
 
 ```
