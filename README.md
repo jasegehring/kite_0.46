@@ -72,7 +72,7 @@ The [docs](https://github.com/jgehringUCB/kite/tree/master/docs) folder contains
 ### Download Files for Example Data
 
 Navigate to a new directory and download 10x data with wget. Unzip files as shown.
-The 10x 3M-february 2018 cell barcode whitelist is included with the `kite` GitHub repo [here](https://github.com/jgehringUCB/kite/blob/master/docs/3M-february-2018.txt.gz). Place it in the working directory.
+The 10x 3M-february 2018 cell barcode whitelist, included with CellRanger, can also be found in the `kite` GitHub repo [here](https://github.com/jgehringUCB/kite/blob/master/docs/3M-february-2018.txt.gz).
 ```
 $wget http://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_1k_protein_v3/pbmc_1k_protein_v3_fastqs.tar
 $tar -xvf ./pbmc_1k_protein_v3_fastqs.tar
