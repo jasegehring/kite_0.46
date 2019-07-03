@@ -135,5 +135,5 @@ $ mkdir ./featurecounts/
 ```
 $ bustools count -o ./featurecounts/featurecounts --genecounts -g ./Features_t2g.txt -e ./matrix.ec -t ./transcripts.txt ./output_sorted.bus
 ```
-
+#### 6. Analyze count matrix
 `Bustools count` outputs a .mtx-formatted Features x Cells matrix and vectors of gene names and cell barcodes (genes.txt and barcodes.txt). From here, standard analysis packages like ScanPy and Seurat can be used to continue the Feature Barcode analysis. For details, check out the [Jupyter notebook](https://github.com/pachterlab/kite/tree/master/docs/).
