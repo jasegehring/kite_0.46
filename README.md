@@ -15,7 +15,7 @@ A walk-through from the kallisto | bustools [Tutorials](https://www.kallistobus.
 ## kite Installation
 Clone the GitHub repo to obtain the core featuremap.py program and some useful accessory files. 
 ```
-$git clone https://github.com/pachterlab/kite
+$ git clone https://github.com/pachterlab/kite
 ```
 ## System Requirements
 Feature Barcode pre-processing requires up-to-date versions of `kallisto` and `bustools`
@@ -80,7 +80,7 @@ Start by preparing a csv-formatted matrix of Feature Barcode names and Feaure Ba
 
 Now run featuremap.py, which creates a mismatch FASTA file and a mismatch t2g file for the experiment. In this case the mismatch files each have 782 entries. 
 ```
-$./kite/featuremap/featuremap.py FeatureBarcodes.csv
+$ ./kite/featuremap/featuremap.py FeatureBarcodes.csv
 ```
 __Note:__ kallisto only accepts odd values for the k-mer length, so if your Feature Barcodes are even in length, add a constant base on either side before running featuremap.py. For example, append an __A__ base to the CD3_TotalSeqB barcode AACAAGACCCTTGAG &rarr; AACAAGACCCTTGAGA
 
