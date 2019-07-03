@@ -25,10 +25,10 @@ bustools v0.39.0 or higher
 ```
 For downstream analysis, we use [ScanPy](https://scanpy.readthedocs.io/en/stable/installation.html) (Wolf et. al, Genome Biology 2018) and the [LeidenAlg](https://github.com/vtraag/leidenalg) clustering package (Traag et. al, arXiv 2018).
 
-## kite pre-processing: featuremap.py
+## kite pre-processing
 
 #### `featuremap.py FeatureBarcodes.csv`
-The featuremap.py program takes a .csv input and outputs "mismatch" transcript-to-gene (t2g) and fasta files that can be used by kallisto | bustools to complete pre-processing (see below and Vignettes). The program takes a single argument, FeatureBarcodes.csv.
+The featuremap.py program is run prior to the standard kallisto | bustools pipeline. It takes a .csv input and outputs "mismatch" transcript-to-gene (t2g) and fasta files that can be used by kallisto | bustools to complete pre-processing (see below and Vignettes). The program takes a single argument, FeatureBarcodes.csv, and outputs mismatch fasta and t2g files to the working directory.
 
 FeatureBarcodes.csv: path to a .csv-formatted file containing Feature Barcode names and sequences (example below).
 
